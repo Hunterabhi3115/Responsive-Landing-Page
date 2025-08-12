@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Navigation Menu</title>
+  <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      height: 200vh; /* Extra height for scrolling demo */
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    /* Navigation styles */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .navbar.scrolled {
+      background: rgba(40, 40, 40, 0.95);
+      padding: 1rem 5%;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Logo/brand styles */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+
+    .navbar.scrolled .logo-text {
+      color: #fff;
+    }
+
+    /* Navigation links */
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: #555;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      transition: color 0.3s ease;
+    }
+
+    .navbar.scrolled .nav-link {
+      color: #f0f0f0;
+    }
+
+    .nav-link:hover {
+      color: #3a7bd5;
+    }
+
+    .navbar.scrolled .nav-link:hover {
+      color: #00d2ff;
+    }
+
+    /* Underline animation */
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #3a7bd5, #00d2ff);
+      transition: width 0.3s ease;
+    }
+
+    .navbar.scrolled .nav-link::after {
+      background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Responsive menu button */
+    .menu-toggle {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: #555;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled .menu-toggle span {
+      background: #f0f0f0;
+    }
+
+    /* Mobile menu styles */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        flex-direction: column;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        padding: 2rem 0;
+        transition: all 0.5s ease;
+      }
+
+      .navbar.scrolled .nav-links {
+        background: rgba(40, 40, 40, 0.95);
+      }
+
+      .nav-links.active {
+        left: 0;
+      }
+
+      .nav-item {
+        margin: 1rem 0;
+      }
+    }
+
+    /* Demo content to show scrolling */
+    .content {
+      max-width: 1200px;
+      margin: 120px auto 0;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/73004df4-8396-46ea-9674-f55d7be727e5.png" alt="Company logo - abstract blue geometric shape on white background" class="logo-img">
+      <span class="logo-text">VIRTUAL</span>
+    </div>
+
+    <ul class="nav-links">
+      <li class="nav-item">
+        <a href="#home" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item">
+        <a href="#services" class="nav-link">Services</a>
+      </li>
+      <li class="nav-item">
+        <a href="#about" class="nav-link">About</a>
+      </li>
+      <li class="nav-item">
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+      </li>
+      <li class="nav-item">
+        <a href="#contact" class="nav-link">Contact</a>
+      </li>
+    </ul>
+
+    <div class="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <div class="content">
+    <h1>Interactive Navigation Demo</h1>
+    <p>Scroll down to see the navigation bar change its appearance. The navbar is fixed to the top of the page and will transition to a dark theme when you scroll. Each menu item has hover effects including a colored underline animation and color change.</p>
+    <p>The navigation is fully responsive - on mobile devices, the menu will collapse into a hamburger menu that can be toggled. The mobile menu inherits the same scroll behavior and hover effects as the desktop version.</p>
+    <p>To implement this navigation bar on other pages, simply copy the entire navigation component (nav element and its contents) along with the associated CSS and JavaScript to your other HTML files.</p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const navbar = document.querySelector('.navbar');
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      // Change navbar style on scroll
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // Mobile menu toggle
+      menuToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+      });
+
+      // Close mobile menu when clicking a link
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+          navLinks.classList.remove('active');
+          menuToggle.classList.remove('active');
+        });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
